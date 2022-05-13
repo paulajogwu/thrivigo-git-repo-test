@@ -2,4 +2,4 @@
 
 ## use Npm start to run the project
 
-## used rect-reduce to manage my state
+## i used react-redux to manage my state

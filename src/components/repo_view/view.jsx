@@ -9,12 +9,13 @@ import Grid from '@material-ui/core/Grid'
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import ListItem from "@material-ui/core/ListItem";
-import Button from "@material-ui/core/Button";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
+import ListItemText from "@material-ui/core/ListItemText";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
+import Avatar from '@material-ui/core/Avatar';
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -23,7 +24,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Backspace from "@material-ui/icons/ArrowBack";
 import Swal from "sweetalert2";
-import { useHistory,Link } from 'react-router-dom'
+import {Link } from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import {createSelector} from 'reselect'
 import {makeSelectUsers } from '../git_search/selector'
@@ -69,25 +70,10 @@ const useStyles = makeStyles((theme) => ({
   
   export default function ViewApp() {
     const {users} = useSelector(stateSelector);
-    console.log("0000000000********",users)
+    console.log("0000000000********",users.avatar_url)
     const classes = useStyles();
-  var Userlist =[]
-     //let [Userlist, setUserlist] = useState([]);
-     for (var i = 0; i < users; i++) {
-       console.log(i,"hhehheh")
-       Userlist.push(i);
-    }
-    // let [deleted, setDeletedUser] = useState([])
-    // const Customers = () => {
-    //   fetch("http://localhost:8080/api/v1/banking/get_user")
-    //     .then((response) => response.json())
-    //     .then((response) => console.log( "we go" , setUserlist(response)));
-    // };
-  
-    // useEffect(() => {
-    //   Customers();
-    // }, []);
-  
+
+ 
    
     
   
@@ -101,72 +87,84 @@ const useStyles = makeStyles((theme) => ({
               color="inherit"
               aria-label="menu"
             >
-              {/* <MenuIcon />   <Button size="medium" className={classes.margin}>
-          Medium
-        </Button>*/}
+      
             </IconButton>
             <Typography variant="h7" className={classes.title}>
               <Link to='/'><Backspace style={{fontSize:35,color:'white'}}/></Link>
             </Typography>
            <center>
-           <Typography
+          
+           </center>
+          </Toolbar>
+        </AppBar>
+        <br />
+        <div style={{ width: 1000, margin: "auto" }}>
+        <Typography
             style={{
               textAlign: "center",
               // paddingTop: "9%",
               fontWeight: "bold",
-              color: "white",
+              color: "blue",
               fontSize: 28,
              // paddingRight:'550px'
             }}
             color="textSecondary"
             gutterBottom
           >
-            Repositories and Organization List
+            User Repositories information
           </Typography>
-           </center>
-          </Toolbar>
-        </AppBar>
-        <br />
-        <div style={{ width: 1000, margin: "auto" }}>
-         
 
+        <List className={classes.root}>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          
+          <img 
+      src={users.avatar_url}
+      alt="new"
+      />
         
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-              <TableHead>
-             
-                  <TableRow>
-                    <StyledTableCell align="center">UserName</StyledTableCell>
-                    <StyledTableCell align="center">Last Name</StyledTableCell>
-                    <StyledTableCell align="center">Email</StyledTableCell>
-                    <StyledTableCell align="center">Phone</StyledTableCell>
-                    <StyledTableCell align="center">Balance</StyledTableCell>
-                    <StyledTableCell align="center">Date</StyledTableCell>
-                    <StyledTableCell align="center">Action</StyledTableCell>
-                  </TableRow>
-            
-              </TableHead>
-              
-              <TableBody>
-              
-              {Userlist.map((data) => (
-                <StyledTableRow>
-                
-                
-                  <StyledTableCell align="center">{data.firstname} </StyledTableCell>
-                  <StyledTableCell align="center"> {data.lastname}</StyledTableCell>
-                  <StyledTableCell align="center"> {data.email}</StyledTableCell>
-                  <StyledTableCell align="center"> {data.phone}</StyledTableCell>
-                  <StyledTableCell align="center"> ₦ {data.Balance}</StyledTableCell>
-                  <StyledTableCell align="center"> {data.date}</StyledTableCell>
-                 
+          
+        </ListItemAvatar>
+        
+       
+      </ListItem>
+
+<ListItem>
+
+<ListItemText> 
+          UserName: {users.login}
+        </ListItemText>
+        <Divider/>
+</ListItem>
   
-                    
-                </StyledTableRow>
-               ))} 
-              </TableBody>
-            </Table>
-          </TableContainer>
+  <ListItem>
+  <ListItemText> 
+Name: {users.name}
+        </ListItemText>
+        <Divider/>
+  </ListItem>
+  
+  <ListItem>
+  <ListItemText> 
+          Biography: {users.bio}
+        </ListItemText>
+  </ListItem>
+
+  <ListItem>
+  <ListItemText> 
+          Location: {users.location}
+        </ListItemText>
+        <Divider/>
+  </ListItem>
+
+  <ListItem>
+  <ListItemText> 
+  No public of repos: {users.public_repos}
+        </ListItemText>
+        <Divider/>
+  </ListItem>
+    </List>
+        
         
 
           

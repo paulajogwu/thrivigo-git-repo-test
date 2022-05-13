@@ -95,20 +95,10 @@ export default function Load(props) {
 
           var reposName = name;
           var nameURL = reposName.replace(/-/g, "/");
-          fetch("https://api.github.com/users/" +nameURL ,{
-            method:'GET',
-            headers: {
-              'Content-Type': 'application/vnd.github.v3+json',
-            },
-          })
-          //.then(response => response.json())
+          fetch("https://api.github.com/users/" +nameURL)
+          .then(result => result.json())
             .then((data) => {
-              if(data.status=='200'){ 
-                setUser(data)
-                 console.log(users,"good***********88",data)
-                 Redirects()
-              }
-              else{
+              if(data.message=="Not Found"){ 
                 Swal.fire({
                   icon: 'error',
                   title: `No Record Found`,
@@ -119,6 +109,14 @@ export default function Load(props) {
                   background: 'white',
                   iconColor: 'red',
                 })
+              }
+              else{
+            
+
+
+                setUser(data)
+               
+                Redirects()
               }
             });
 
